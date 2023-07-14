@@ -1,5 +1,5 @@
 import { api } from "../../redux/api/apiSlice";
-interface IBooks {
+export interface IBooks {
   _id: string;
   id: number;
   Genre: string;
