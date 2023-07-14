@@ -1,12 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginUser } from "../../redux/features/user/userSlice";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 interface LoginFormInputs {
   email: string;
   password: string;
 }
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.user);
   const {
     register,
     handleSubmit,
@@ -14,9 +18,13 @@ export default function SignIn() {
   } = useForm<LoginFormInputs>();
   const dispatch = useAppDispatch();
   const onSubmit = (data: LoginFormInputs) => {
-    console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
   };
+  useEffect(() => {
+    if (user.email) {
+      navigate("/");
+    }
+  }, [user.email]);
   return (
     <div className="bg-emerald-500 h-screen flex items-center justify-center">
       <form onSubmit={handleSubmit(onSubmit)}>

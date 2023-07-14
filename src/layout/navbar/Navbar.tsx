@@ -1,10 +1,17 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { signOut } from "firebase/auth";
+import { setUser } from "../../redux/features/user/userSlice";
+import { auth } from "../../lib/firebase";
 
 export default function Navbar() {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      dispatch(setUser(null));
+    });
+  };
   return (
     <div className="container m-auto h-16 flex items-center justify-between">
       <Link to="/">
@@ -19,7 +26,7 @@ export default function Navbar() {
             <Link to="/signup">SignUp</Link>
           </>
         ) : (
-          <Link to="/logout" onClick={handleLogout}>
+          <Link to="/" onClick={handleLogout}>
             Logout
           </Link>
         )}
