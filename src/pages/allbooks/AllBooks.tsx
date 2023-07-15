@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { IBooks, useGetAllBooksQuery } from "./allbooksEndpoints";
 import { Link } from "react-router-dom";
+import Loading from "../../components/header/loading/Loading";
 
+interface LinkState {
+  book: IBooks;
+}
 export default function AllBooks() {
-  const [search, setSearch] = useState<string>();
-  const { data } = useGetAllBooksQuery(undefined);
+  const [search, setSearch] = useState<string>("");
+  const { data, isLoading } = useGetAllBooksQuery(undefined);
   // Assuming you have a state variable to store the selected option value
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [selectedOptionByYear, setSelectedOptionByYear] = useState<string>("");
@@ -37,7 +41,7 @@ export default function AllBooks() {
   return (
     <div className=" mt-10 flex gap-3 container m-auto">
       <div className="w-[400px] p-2 gap-3 border flex items-center flex-col">
-        <Link to="/newbook" className="bg-orange-300 p-2 rounded-r-md">
+        <Link to="/newbook" className="shadow-lg bg-orange-300 p-2 rounded-md">
           Add New Book
         </Link>
         <input
@@ -82,26 +86,32 @@ export default function AllBooks() {
       </div>
       <div className=" flex justify-start gap-3">
         {filteredBooks?.map((book, index) => (
-          <div key={index} className="flex justify-start">
-            <div className="flex flex-col gap-y-3 border p-2 shadow-lg w-64 h-auto rounded-md">
-              <div>
-                <div className="bg-red-200 w-full h-28"></div>
+          <Link
+            to={`/bookdetails/${book._id}`}
+            state={{ book: book }}
+            key={index}
+          >
+            <div className="flex justify-start">
+              <div className="flex flex-col gap-y-3 border p-2 shadow-lg w-64 h-auto rounded-md">
+                <div>
+                  <div className="bg-red-200 w-full h-28"></div>
+                </div>
+                <p>
+                  {" "}
+                  <span className="text-2xl">Title:</span> {book.Title}
+                </p>
+                <p>
+                  Author: <span>{book.Author}</span>
+                </p>
+                <p>
+                  Genre: <span>{book.Genre}</span>
+                </p>
+                <p>
+                  Publication Date: <span>{book.PublicationDate}</span>
+                </p>
               </div>
-              <p>
-                {" "}
-                <span className="text-2xl">Title:</span> {book.Title}
-              </p>
-              <p>
-                Author: <span>{book.Author}</span>
-              </p>
-              <p>
-                Genre: <span>{book.Genre}</span>
-              </p>
-              <p>
-                Publication Date: <span>{book.PublicationDate}</span>
-              </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
