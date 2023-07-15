@@ -7,6 +7,8 @@ import SignUp from "../pages/signup/SignUp";
 import NewBook from "../pages/newbook/NewBook";
 import BookDetails from "../pages/bookdetails/BookDetails";
 import EditBook from "../pages/editbook/EditBook";
+import RootPage from "./RootPage";
+import PrivatesRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -14,23 +16,35 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "/",
+        element: <RootPage />,
+      },
+      {
         path: "/allbooks",
         element: <AllBooks />,
       },
       {
         path: "/newbook",
-        element: <NewBook />,
+        element: (
+          <PrivatesRoutes>
+            <NewBook />
+          </PrivatesRoutes>
+        ),
       },
       {
         path: "/editbook/:id",
-        element: <EditBook />,
+        element: (
+          <PrivatesRoutes>
+            <EditBook />
+          </PrivatesRoutes>
+        ),
       },
       {
         path: "/bookdetails/:id",
         element: <BookDetails />,
       },
       {
-        path: "/signin",
+        path: "/login",
         element: <SignIn />,
       },
       {

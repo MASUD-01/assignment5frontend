@@ -1,10 +1,25 @@
-import { Link, useLocation } from "react-router-dom";
-
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useDeleteBookMutation } from "../newbook/newBookEndpoints";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAppSelector } from "../../redux/hooks";
 export default function BookDetails() {
   let { state } = useLocation();
-
+  const { user } = useAppSelector((state) => state.user);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [deleteBook, { isSuccess, isError }] = useDeleteBookMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      toast("Book HasBeen Deleted");
+    } else if (isError) {
+      toast("something went wrong");
+    }
+  }, [isSuccess, isError]);
   return (
     <div>
+      <ToastContainer />
       <div className="my-5 flex justify-center gap-2">
         <Link
           to={`/editbook/${state.book._id}`}
@@ -13,7 +28,20 @@ export default function BookDetails() {
         >
           Edit Book
         </Link>
-        <button className="bg-red-400 p-2 rounded-md shadow-md">
+        <button
+          onClick={async () => {
+            if (user.email) {
+              alert("confirm to delete");
+              await deleteBook(id as string);
+              setTimeout(() => {
+                navigate("/allbooks");
+              }, 1000);
+            } else {
+              navigate("/login");
+            }
+          }}
+          className="bg-red-400 p-2 rounded-md shadow-md"
+        >
           Delete Book
         </button>
       </div>

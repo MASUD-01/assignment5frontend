@@ -7,3 +7,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.imagess{
+    background-image: url("../public/download\ \(1\).jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+   
+}

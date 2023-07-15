@@ -4,17 +4,18 @@ import { useCreateBookMutation } from "./newBookEndpoints";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
 export default function NewBook() {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IBooks>();
   const [createBook, { isSuccess, isError }] = useCreateBookMutation();
   const onSubmit = async (data: IBooks) => {
-    console.log(data);
     await createBook(data);
+
+    reset();
   };
   useEffect(() => {
     if (isSuccess) {

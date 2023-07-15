@@ -16,13 +16,13 @@ export default function Navbar() {
     <div className="container m-auto h-16 flex items-center justify-between">
       <Link to="/">
         {" "}
-        <p>assingment4</p>
+        <p>BookSelf</p>
       </Link>
       <div className="flex gap-3">
         <Link to="/allbooks">AllBooks</Link>
         {!user.email ? (
           <>
-            <Link to="/signin">SignIn</Link>
+            <Link to="/login">SignIn</Link>
             <Link to="/signup">SignUp</Link>
           </>
         ) : (

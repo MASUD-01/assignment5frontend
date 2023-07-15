@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { IBooks, useGetAllBooksQuery } from "./allbooksEndpoints";
 import { Link } from "react-router-dom";
-import Loading from "../../components/header/loading/Loading";
-
-interface LinkState {
-  book: IBooks;
-}
 export default function AllBooks() {
   const [search, setSearch] = useState<string>("");
   const { data, isLoading } = useGetAllBooksQuery(undefined);
@@ -30,8 +25,6 @@ export default function AllBooks() {
           year.includes(selectedOptionByYear) ||
           title.includes(searchQuery)) &&
         (selectedOption === "" || genre === selectedOption)
-        //  &&
-        //   (selectedOptionByYear === "" ||  === selectedOptionByYear)
       );
     });
   } else {
@@ -84,7 +77,7 @@ export default function AllBooks() {
           </select>
         </div>
       </div>
-      <div className=" flex justify-start gap-3">
+      <div className=" grid grid-cols-3 justify-start gap-3">
         {filteredBooks?.map((book, index) => (
           <Link
             to={`/bookdetails/${book._id}`}

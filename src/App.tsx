@@ -21,9 +21,9 @@ function App() {
     });
   }, [dispatch]);
   return (
-    <>
+    <div>
       <MainLayout />
-    </>
+    </div>
   );
 }
 

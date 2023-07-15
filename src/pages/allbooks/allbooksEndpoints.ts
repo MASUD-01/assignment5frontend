@@ -11,6 +11,7 @@ const booksApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllBooks: builder.query<{ data: IBooks[]; status: boolean }, void>({
       query: () => "/books",
+      providesTags: ["Book"],
     }),
   }),
 });
