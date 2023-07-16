@@ -1,9 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import { useGetAllBooksQuery } from "../pages/allbooks/allbooksEndpoints";
 
 export default function RootPage() {
-  const { data, isLoading } = useGetAllBooksQuery(undefined);
+  const { data } = useGetAllBooksQuery(undefined);
   return (
     <div className="h-auto p-4">
       <div className=" grid grid-cols-4 gap-2">

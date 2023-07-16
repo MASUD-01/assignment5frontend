@@ -14,7 +14,6 @@ export default function EditBook() {
   const { id } = useParams();
   const { data } = useEditBookQuery(id as string);
   const [updateBook, { isSuccess, isError }] = useUpdateBookMutation();
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,

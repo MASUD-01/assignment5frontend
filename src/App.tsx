@@ -1,10 +1,9 @@
 import { onAuthStateChanged } from "firebase/auth";
 import MainLayout from "./layout/mainlayout/MainLayout";
 import { setLoading, setUser } from "./redux/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { useAppDispatch } from "./redux/hooks";
 import { useEffect } from "react";
 import { auth } from "./lib/firebase";
-import { useNavigate } from "react-router-dom";
 
 function App() {
   const dispatch = useAppDispatch();
