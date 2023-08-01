@@ -3,7 +3,7 @@ import { IBooks, useGetAllBooksQuery } from "./allbooksEndpoints";
 import { Link } from "react-router-dom";
 export default function AllBooks() {
   const [search, setSearch] = useState<string>("");
-  const { data, isLoading } = useGetAllBooksQuery(undefined);
+  const { data } = useGetAllBooksQuery(undefined);
   // Assuming you have a state variable to store the selected option value
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [selectedOptionByYear, setSelectedOptionByYear] = useState<string>("");
@@ -30,7 +30,6 @@ export default function AllBooks() {
   } else {
     filteredBooks = data?.data ?? [];
   }
-  console.log(selectedOption);
   return (
     <div className=" mt-10 flex gap-3 container m-auto">
       <div className="w-[400px] p-2 gap-3 border flex items-center flex-col">
